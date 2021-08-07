@@ -15,5 +15,5 @@ test {
 task run(type: JavaExec) {
   classpath = sourceSets.main.runtimeClasspath
   main = "notes.Main"
-  if (project.args) { args project.args.split(" ") }
+  args((project.findProperty("args") ?: "").split(" "))
 }
