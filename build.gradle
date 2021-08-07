@@ -1,0 +1,19 @@
+apply plugin: "groovy"
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	compile "org.codehaus.groovy:groovy-all:2.5.10"
+}
+
+test {
+	testLogging { events "passed", "skipped", "failed" }
+}
+
+task run(type: JavaExec) {
+  classpath = sourceSets.main.runtimeClasspath
+  main = "notes.Main"
+  if (project.args) { args project.args.split(" ") }
+}
