@@ -28,6 +28,14 @@ class NotesTest {
 		assertEquals "notes:", notes, Notes.notes
 	}
 
+	@Test
+	void testSave() {
+		Notes.load("build/tmp/testSave.json")
+		def note = Notes.add("foo", "bar")
+		Notes.save()
+		assertEquals "json:", JsonOutput.prettyPrint(JsonOutput.toJson([note])), Notes.file.text
+	}
+
 	//--------------------------------------------------------------------------
 
 	@Test
