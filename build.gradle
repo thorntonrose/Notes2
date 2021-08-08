@@ -9,13 +9,34 @@ dependencies {
 }
 
 cleanTest {
-	delete fileTree(dir: "build/tmp", include: "*.json")
+	delete fileTree(dir: "$buildDir/tmp", include: "*.json")
 }
 
 test {
 	dependsOn cleanTest
 	onOutput { dest, event -> print event.message }
 	testLogging { events "passed", "skipped", "failed" }
+}
+
+task fatJar(type: Jar) {
+	manifest {
+		attributes "Main-Class": "notes.Main"
+	}
+
+	from "build/classes/groovy/main"
+	from configurations.runtime.collect { zipTree(it) }
+	archiveName "${project.name}-all.jar" as String
+}
+
+assemble {
+	dependsOn fatJar
+}
+
+task dist(type: Copy) {
+	dependsOn assemble
+	from "src/dist"
+	from("build/libs") { include fatJar.archiveName }
+	into "$buildDir/dist"
 }
 
 task run(type: JavaExec) {
