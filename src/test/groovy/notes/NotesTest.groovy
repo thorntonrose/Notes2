@@ -7,17 +7,17 @@ import static groovy.test.GroovyAssert.*
 class NotesTest {
 	@Test
 	void testLoad() {
-		def doc = [Notes.newNote("foo", "bar")]
+		def doc = [Notes.newNotes("foo", "bar")]
 		def file = new File("build/tmp/testLoad.json")
 		file.text = JsonOutput.toJson(doc)
 
-		def notes = new Notes(file.path)
-		assertEquals "doc:", doc, notes.doc
+		Notes.load(file.path)
+		assertEquals "doc:", doc, Notes.doc
 	}
 
 	@Test
 	void testLoad_NoFile() {
-		def notes = new Notes("build/tmp/testLoad_NoFile.json")
-		assertEquals "doc:", [], notes.doc
+		Notes.load("build/tmp/testLoad_NoFile.json")
+		assertEquals "doc:", [], Notes.doc
 	}
 }
