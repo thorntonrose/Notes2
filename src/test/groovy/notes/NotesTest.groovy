@@ -42,11 +42,11 @@ class NotesTest {
 		assertEquals "notes[-1]:", note, Notes.notes[-1]
 	}
 
-	// @Test
-	// void testUpdate() {
-	// 	def note1 = Notes.add("foo", "bar")
-	// 	def note2 = Notes.update(note1.id, "baz")
-	// 	assertEquals "note2:", [id: note1.id, note1.title, note2.text], note2
-	// 	assertEquals "notes.size:", 1, notes.size()
-	// }
+	@Test
+	void testUpdate() {
+		def note1 = Notes.add("foo", "bar")
+		def note2 = Notes.update(note1.id, "baz")
+		assertEquals "note2:", [id: note1.id, title: note1.title, text: note2.text], note2
+		assertEquals "notes.size:", 1, Notes.notes.size()
+	}
 }

@@ -31,7 +31,10 @@ class Notes {
 	}
 
 	static update(id, text) {
-
+		def note = notes.find { it.id == id }
+		if (!note) { throw new Exception("note $id not found") }
+		note += [text: text]
+		note
 	}
 
 	static delete(id) {}
