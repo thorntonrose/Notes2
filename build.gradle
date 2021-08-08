@@ -9,6 +9,7 @@ dependencies {
 }
 
 test {
+	onOutput { dest, event -> print event.message }
 	testLogging { events "passed", "skipped", "failed" }
 }
 
