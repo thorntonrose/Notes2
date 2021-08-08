@@ -39,12 +39,6 @@ class NotesTest {
 	//--------------------------------------------------------------------------
 
 	@Test
-	void testList() {
-		Notes.notes = [Notes.newNote("foo", "bar"), Notes.newNote("spam", "eggs")]
-		assertEquals "list:", Notes.notes.collect { "${it.id} ${it.title} ${it.text}" }.join("\n"), Notes.list()
-	}
-
-	@Test
 	void testAdd() {
 		def id = Notes.nextId()
 		def note = Notes.add("foo", "bar")

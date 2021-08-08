@@ -19,14 +19,18 @@ class Main {
 		}
 
 		Notes.load(fileName)
-		opts.adds && show(Notes.add(*opts.adds))
-		opts.updates && show(Notes.update(*opts.updates))
-		opts.deletes && println(Notes.delete(*opts.deletes) + " deleted")
-		opts.list && println(Notes.list())
+		opts.adds && println(format(Notes.add(*opts.adds)))
+		opts.updates && println(format(Notes.update(*opts.updates)))
+		opts.deletes && println(Notes.delete(*opts.deletes) + " (deleted)")
+		opts.list && println(format(Notes.notes))
 		Notes.save()
 	}
 
-	static show(note) {
-		println "${note.id} ${note.title} ${note.text}"
+	static format(List notes) {
+		notes.collect { format it }.join("\n")
+	}
+
+	static format(Map note) {
+		"${note.id} ${note.title} ${note.text}"
 	}
 }

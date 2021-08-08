@@ -49,8 +49,4 @@ class Notes {
 		notes = notes.findAll { it.id != id }
 		id
 	}
-
-	static list() {
-		notes.collect { "${it.id} ${it.title} ${it.text}" }.join("\n")
-	}
 }
