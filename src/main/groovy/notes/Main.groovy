@@ -17,11 +17,11 @@ class Main {
 			return
 		}
 
-		Notes.load()
-		opts.adds && Notes.add(*opts.adds)
-		opts.updates && Notes.update(*opts.updates)
-		opts.delete && Notes.delete(*opts.delete)
-		opts.list && Notes.list()
-		Notes.save()
+		def notes = new Notes()
+		opts.adds && notes.add(*opts.adds)
+		opts.updates && notes.update(*opts.updates)
+		opts.delete && notes.delete(*opts.delete)
+		opts.list && notes.list()
+		notes.save()
 	}
 }

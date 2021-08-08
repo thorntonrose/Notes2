@@ -3,28 +3,28 @@ package notes
 import groovy.json.*
 
 class Notes {
-	static file
-	static doc
-	static slurper = new JsonSlurper()
+	def file
+	def doc
+	def slurper = new JsonSlurper()
 
-	static newNote(title, text) {
-		[id: 0, title: title, text: text]
-	}
-
-	static load(path="notes.json") {
+	Notes(path="notes.json") {
 		file = new File(path)
 		doc = file.exists() ? slurper.parse(file) : []
 	}
 
-	static save() {
+	def save() {
 		file.text = JsonOutput.prettyPrint(JsonOutput.toJson(doc))
 	}
 
-	static add(title, text) {}
-	static update(id, text) {}
-	static delete(id) {}
+	def add(title, text) {}
+	def update(id, text) {}
+	def delete(id) {}
 
-	static list() {
+	def list() {
 		doc.each { println "${it.id} ${it.title} ${it.text}" }
+	}
+
+	static newNote(title, text) {
+		[id: 0, title: title, text: text]
 	}
 }

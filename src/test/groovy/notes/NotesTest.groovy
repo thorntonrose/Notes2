@@ -11,13 +11,13 @@ class NotesTest {
 		def file = new File("build/tmp/testLoad.json")
 		file.text = JsonOutput.toJson(doc)
 
-		Notes.load(file.path)
-		assertEquals "doc:", doc, Notes.doc
+		def notes = new Notes(file.path)
+		assertEquals "doc:", doc, notes.doc
 	}
 
 	@Test
 	void testLoad_NoFile() {
-		Notes.load("build/tmp/testLoad_NoFile.json")
-		assertEquals "doc:", [], Notes.doc
+		def notes = new Notes("build/tmp/testLoad_NoFile.json")
+		assertEquals "doc:", [], notes.doc
 	}
 }
