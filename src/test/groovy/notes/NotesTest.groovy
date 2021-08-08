@@ -50,17 +50,25 @@ class NotesTest {
 		assertEquals "notes.size:", 1, Notes.notes.size()
 	}
 
-	@Test @Ignore
+	@Test
 	void testUpdate_NotFound() {
+		try {
+			Notes.update 0, "foo"
+		} catch (Exception e) {
+			assertEquals "message:", "note 0 not found", e.message
+		}
 	}
 
 	@Test
 	void testDelete() {
 		Notes.delete Notes.add("foo", "bar").id
-		assertEquals "notes.size:", 0, Notes.notes
+		assertEquals "notes:", [], Notes.notes
 	}
 
-	@Test @Ignore
+	@Test
 	void testDelete_NotFound() {
+		Notes.add("foo", "bar")
+		Notes.delete 0
+		assertEquals "notes.size:", 1, Notes.notes.size()
 	}
 }
