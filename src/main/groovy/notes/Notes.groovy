@@ -4,20 +4,21 @@ import groovy.json.*
 
 class Notes {
 	static file
-	static notes = []
+	static notes = [:]
 	static slurper = new JsonSlurper()
 
 	static newNote(title, text) {
-		[id: 0, title: title, text: text]
+		// !!!: id is String because JSON requires Map keys to be Strings.
+		[id: "0", title: title, text: text]
 	}
 
 	static nextId() {
-		(notes*.id.max() ?: 0) + 1
+		((notes.keySet().collect { it as int }.max() ?: 0) + 1) as String
 	}
 
 	static load(fileName) {
 		file = new File(fileName)
-		notes = file.exists() ? slurper.parse(file) : []
+		file.exists() && (notes = slurper.parse(file))
 	}
 
 	static save() {
@@ -26,27 +27,17 @@ class Notes {
 
 	static add(String title, String text) {
 		def note = newNote(title, text) + [id: nextId()]
-		notes << note
-		note
+		notes[note.id] = note
 	}
 
-	static update(String id, String text) {
-		update id as int, text
-	}
-
-	static update(int id, String text) {
-		def note = notes.find { it.id == id }
+	static update(String id, String title, String text) {
+		def note = notes[id]
 		if (!note) { throw new Exception("note $id not found") }
-		note += [text: text]
-		note
+		notes[id] = note + [title: title, text: text]
 	}
 
 	static delete(String id) {
-		delete id as int
-	}
-
-	static delete(int id) {
-		notes = notes.findAll { it.id != id }
+		notes.remove(id)
 		id
 	}
 }
