@@ -37,7 +37,9 @@ class Notes {
 		note
 	}
 
-	static delete(id) {}
+	static delete(id) {
+		notes = notes.findAll { it.id != id }
+	}
 
 	static list() {
 		notes.collect { "${it.id} ${it.title} ${it.text}" }.join("\n")

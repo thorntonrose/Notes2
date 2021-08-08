@@ -49,4 +49,18 @@ class NotesTest {
 		assertEquals "note2:", [id: note1.id, title: note1.title, text: note2.text], note2
 		assertEquals "notes.size:", 1, Notes.notes.size()
 	}
+
+	@Test @Ignore
+	void testUpdate_NotFound() {
+	}
+
+	@Test
+	void testDelete() {
+		Notes.delete Notes.add("foo", "bar").id
+		assertEquals "notes.size:", 0, Notes.notes
+	}
+
+	@Test @Ignore
+	void testDelete_NotFound() {
+	}
 }
