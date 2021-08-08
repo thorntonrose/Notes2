@@ -15,8 +15,8 @@ class Notes {
 		(notes*.id.max() ?: 0) + 1
 	}
 
-	static load(path="notes.json") {
-		file = new File(path)
+	static load(fileName) {
+		file = new File(fileName)
 		notes = file.exists() ? slurper.parse(file) : []
 	}
 
@@ -24,21 +24,30 @@ class Notes {
 		file.text = JsonOutput.prettyPrint(JsonOutput.toJson(notes))
 	}
 
-	static add(title, text) {
+	static add(String title, String text) {
 		def note = newNote(title, text) + [id: nextId()]
 		notes << note
 		note
 	}
 
-	static update(id, text) {
+	static update(String id, String text) {
+		update id as int, text
+	}
+
+	static update(int id, String text) {
 		def note = notes.find { it.id == id }
 		if (!note) { throw new Exception("note $id not found") }
 		note += [text: text]
 		note
 	}
 
-	static delete(id) {
-		notes = notes.findAll { it.id != id }
+	static delete(String id) {
+		delete id as int
+	}
+
+	static delete(int id) {
+		def intId = id as int
+		notes = notes.findAll { it.id != intId }
 	}
 
 	static list() {

@@ -8,7 +8,12 @@ dependencies {
 	compile "org.codehaus.groovy:groovy-all:2.5.10"
 }
 
+cleanTest {
+	delete fileTree(dir: "build/tmp", include: "*.json")
+}
+
 test {
+	dependsOn cleanTest
 	onOutput { dest, event -> print event.message }
 	testLogging { events "passed", "skipped", "failed" }
 }

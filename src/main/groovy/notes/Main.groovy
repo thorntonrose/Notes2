@@ -1,6 +1,8 @@
 package notes
 
 class Main {
+	static fileName = "notes.json"
+
 	public static void main(String[] args) {
 		def cli = new CliBuilder(usage: "notes <options> <args>")
 		cli._ longOpt: "help", "show usage"
@@ -16,9 +18,9 @@ class Main {
 			return
 		}
 
-		Notes.load()
+		Notes.load(fileName)
 		opts.adds && show(Notes.add(*opts.adds))
-		opts.updates && Notes.update(*opts.updates)
+		opts.updates && show(Notes.update(*opts.updates))
 		opts.delete && Notes.delete(*opts.delete)
 		opts.list && println(Notes.list())
 		Notes.save()
