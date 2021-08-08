@@ -12,7 +12,7 @@ class Notes {
 	}
 
 	static nextId() {
-		notes.size() + 1
+		(notes*.id.max() ?: 0) + 1
 	}
 
 	static load(path="notes.json") {

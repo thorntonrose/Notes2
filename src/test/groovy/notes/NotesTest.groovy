@@ -10,6 +10,14 @@ class NotesTest {
 		Notes.notes = []
 	}
 
+	//--------------------------------------------------------------------------
+
+	@Test
+	void testLoad_NoFile() {
+		Notes.load("build/tmp/testLoad_NoFile.json")
+		assertEquals "notes:", [], Notes.notes
+	}
+
 	@Test
 	void testLoad() {
 		def notes = [Notes.newNote("foo", "bar")]
@@ -18,12 +26,6 @@ class NotesTest {
 
 		Notes.load(file.path)
 		assertEquals "notes:", notes, Notes.notes
-	}
-
-	@Test
-	void testLoad_NoFile() {
-		Notes.load("build/tmp/testLoad_NoFile.json")
-		assertEquals "notes:", [], Notes.notes
 	}
 
 	//--------------------------------------------------------------------------
@@ -70,5 +72,19 @@ class NotesTest {
 		Notes.add("foo", "bar")
 		Notes.delete 0
 		assertEquals "notes.size:", 1, Notes.notes.size()
+	}
+
+	//--------------------------------------------------------------------------
+
+	@Test
+	void testNextId_NoNotes() {
+		assertEquals "nextId:", 1, Notes.nextId()
+	}
+
+	@Test
+	void testNextId() {
+		def note = Notes.add "foo", "bar"
+		note.id = 10
+		assertEquals "nextId:", 11, Notes.nextId()
 	}
 }
