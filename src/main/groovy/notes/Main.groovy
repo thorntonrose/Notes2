@@ -21,7 +21,7 @@ class Main {
 		opts.adds && Notes.add(*opts.adds)
 		opts.updates && Notes.update(*opts.updates)
 		opts.delete && Notes.delete(*opts.delete)
-		opts.list && Notes.list()
+		opts.list && println(Notes.list())
 		Notes.save()
 	}
 }
