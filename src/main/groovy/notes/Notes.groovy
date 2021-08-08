@@ -46,8 +46,8 @@ class Notes {
 	}
 
 	static delete(int id) {
-		def intId = id as int
-		notes = notes.findAll { it.id != intId }
+		notes = notes.findAll { it.id != id }
+		id
 	}
 
 	static list() {
