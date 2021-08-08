@@ -7,7 +7,7 @@ import static groovy.test.GroovyAssert.*
 class NotesTest {
 	@Test
 	void testLoad() {
-		def doc = [Notes.newNotes("foo", "bar")]
+		def doc = [Notes.newNote("foo", "bar")]
 		def file = new File("build/tmp/testLoad.json")
 		file.text = JsonOutput.toJson(doc)
 
